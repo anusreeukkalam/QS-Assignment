@@ -1,25 +1,24 @@
-import React, { useCallback, useEffect, useRef, useState, ChangeEvent } from 'react';
-import './displayDropdown.css'
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import './displayDropdown.css';
 import { LuSettings2 } from "react-icons/lu";
 import { BiChevronDown } from "react-icons/bi";
 
-
-function DisplayDropdown({ grouping, setGrouping, ordering, setOrdering }: { grouping: string, setGrouping: (grouping: string) => void, ordering: string, setOrdering: (ordering: string) => void }) {
+function DisplayDropdown({ grouping, setGrouping, ordering, setOrdering }) {
   const [visible, setVisible] = useState(false);
-  const componentRef = useRef<HTMLDivElement | null>(null);
+  const componentRef = useRef(null);
 
   const openDropdown = useCallback(() => {
     setVisible(true);
-  }, [],);
+  }, []);
 
-  const handleClickOutside = useCallback((event: any) => {
+  const handleClickOutside = useCallback((event) => {
     if (componentRef.current && !componentRef.current.contains(event.target)) {
       setVisible(false);
     }
   }, []);
 
-  const onGroupingChange = useCallback((e: ChangeEvent<HTMLSelectElement>) => setGrouping(e.target.value), []);
-  const onOrderingChange = useCallback((e: ChangeEvent<HTMLSelectElement>) => setOrdering(e.target.value), []);
+  const onGroupingChange = useCallback((e) => setGrouping(e.target.value), [setGrouping]);
+  const onOrderingChange = useCallback((e) => setOrdering(e.target.value), [setOrdering]);
 
   useEffect(() => {
     document.addEventListener('click', handleClickOutside);
@@ -27,7 +26,7 @@ function DisplayDropdown({ grouping, setGrouping, ordering, setOrdering }: { gro
     return () => {
       document.removeEventListener('click', handleClickOutside);
     };
-  });
+  }, [handleClickOutside]);
 
   return (
     <div className='display-dropdown' ref={componentRef}>

@@ -1,6 +1,6 @@
 import React from 'react';
 import './header.css'
-import DisplayDropdown from '../Dropdowns/DisplayDropdown';
+import DisplayDropdown from '../Dropdowns/DisplayDropdown/displayDropdown';
 
 function Header({ grouping, setGrouping, ordering, setOrdering }: { grouping: string, setGrouping: (grouping: string) => void, ordering: string, setOrdering: (ordering: string) => void }) {
 
