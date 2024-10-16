@@ -13,8 +13,8 @@ function Column({ tickets, grouping, groupBy, userIdToData }) {
         if (grouping === "priority")
             return groupBy;
         if (grouping === "user")
-            return userIdToData[groupBy]?.name || "Unknown User"; // Added safety check
-    }, [grouping, groupBy, userIdToData]); // Added userIdToData to dependencies
+            return userIdToData[groupBy]?.name || "Unknown User"; 
+    }, [grouping, groupBy, userIdToData]); 
 
     const icon = useMemo(() => {
         if (grouping === "status")
@@ -23,9 +23,9 @@ function Column({ tickets, grouping, groupBy, userIdToData }) {
             return getPriorityIcon(groupBy);
         if (grouping === "user") {
             const user = userIdToData[groupBy];
-            return user ? <UserIcon name={user.name} available={user.available} /> : null; // Added safety check
+            return user ? <UserIcon name={user.name} available={user.available} /> : null;
         }
-    }, [grouping, groupBy, userIdToData]); // Added userIdToData to dependencies
+    }, [grouping, groupBy, userIdToData]); 
 
     return (
         <div className='column'>

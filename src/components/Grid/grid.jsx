@@ -10,7 +10,7 @@ function Grid({ gridData, grouping, userIdToData }) {
             {keys.map((k) => (
                 <Column
                     key={k}
-                    tickets={gridData[k]} // No type assertion needed in JavaScript
+                    tickets={gridData[k]} 
                     grouping={grouping}
                     groupBy={k}
                     userIdToData={userIdToData}

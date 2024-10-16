@@ -1,6 +1,5 @@
 import { Ticket, User } from "../models";
 
-// Group tickets by their status
 export const groupTicketsByStatus = (tickets) => {
     const groups = tickets.reduce((result, ticket) => {
         if (!result[ticket.status]) {
@@ -13,7 +12,7 @@ export const groupTicketsByStatus = (tickets) => {
     return groups;
 };
 
-// Group tickets by their priority
+
 export const groupTicketsByPriority = (tickets) => {
     const groups = tickets.reduce((result, ticket) => {
         const priority = getPriorityLabel(ticket.priority);
@@ -27,7 +26,7 @@ export const groupTicketsByPriority = (tickets) => {
     return groups;
 };
 
-// Group tickets by user ID
+
 export const groupTicketsByUserId = (tickets) => {
     const groups = tickets.reduce((result, ticket) => {
         if (!result[ticket.userId]) {
@@ -40,7 +39,6 @@ export const groupTicketsByUserId = (tickets) => {
     return groups;
 };
 
-// Map users by their ID
 export const mapUsersByUserId = (users) => {
     const group = users.reduce((accumulator, user) => {
         accumulator[user.id] = user;
@@ -50,7 +48,7 @@ export const mapUsersByUserId = (users) => {
     return group;
 };
 
-// Get priority label based on the priority number
+
 const getPriorityLabel = (priority) => {
     switch (priority) {
         case 0: return "No priority";
@@ -62,13 +60,13 @@ const getPriorityLabel = (priority) => {
     }
 };
 
-// Order tickets by priority
+
 const orderByPriority = (tickets) => tickets.sort((a, b) => (a.priority > b.priority ? -1 : 1));
 
-// Order tickets by title
+
 const orderByTitle = (tickets) => tickets.sort((a, b) => (a.title < b.title ? -1 : 1));
 
-// Load tickets based on grouping and ordering
+
 export const loadGrid = (tickets, grouping, ordering) => {
     let orderedTickets;
     if (ordering === "priority") {

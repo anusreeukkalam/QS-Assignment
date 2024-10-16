@@ -1,7 +1,7 @@
 import { ReportHandler } from 'web-vitals';
 
-const reportWebVitals = (onPerfEntry) => { // Removed the type annotation for onPerfEntry
-  if (onPerfEntry && typeof onPerfEntry === 'function') { // Changed instanceof Function to typeof check
+const reportWebVitals = (onPerfEntry) => { 
+  if (onPerfEntry && typeof onPerfEntry === 'function') { 
     import('web-vitals').then(({ getCLS, getFID, getFCP, getLCP, getTTFB }) => {
       getCLS(onPerfEntry);
       getFID(onPerfEntry);
