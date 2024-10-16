@@ -1,20 +1,22 @@
-import { Ticket, User } from "../interfaces";
+import { Ticket, User } from "../models";
 
-export const groupTicketsByStatus = (tickets: Ticket[]) => {
-    const groups: Record<string, Ticket[]> = tickets.reduce((result: Record<string, Ticket[]>, ticket: Ticket) => {
+// Group tickets by their status
+export const groupTicketsByStatus = (tickets) => {
+    const groups = tickets.reduce((result, ticket) => {
         if (!result[ticket.status]) {
             result[ticket.status] = [];
         }
         result[ticket.status].push(ticket);
         return result;
-    }, { "Backlog": [], "Todo": [], "In progress": [], "Done": [], "Canceled": [], });
+    }, { "Backlog": [], "Todo": [], "In progress": [], "Done": [], "Canceled": [] });
 
     return groups;
 };
 
-export const groupTicketsByPriority = (tickets: Ticket[]) => {
-    const groups: Record<string, Ticket[]> = tickets.reduce((result: Record<string, Ticket[]>, ticket: Ticket) => {
-        const priority = getPriotityLabel(ticket.priority);
+// Group tickets by their priority
+export const groupTicketsByPriority = (tickets) => {
+    const groups = tickets.reduce((result, ticket) => {
+        const priority = getPriorityLabel(ticket.priority);
         if (!result[priority]) {
             result[priority] = [];
         }
@@ -25,8 +27,9 @@ export const groupTicketsByPriority = (tickets: Ticket[]) => {
     return groups;
 };
 
-export const groupTicketsByUserId = (tickets: Ticket[]) => {
-    const groups: Record<string, Ticket[]> = tickets.reduce((result: Record<string, Ticket[]>, ticket: Ticket) => {
+// Group tickets by user ID
+export const groupTicketsByUserId = (tickets) => {
+    const groups = tickets.reduce((result, ticket) => {
         if (!result[ticket.userId]) {
             result[ticket.userId] = [];
         }
@@ -37,8 +40,9 @@ export const groupTicketsByUserId = (tickets: Ticket[]) => {
     return groups;
 };
 
-export const mapUsersByUserId = (users: User[]) => {
-    let group: Record<string, User> = users.reduce((accumulator: Record<string, User>, user: User) => {
+// Map users by their ID
+export const mapUsersByUserId = (users) => {
+    const group = users.reduce((accumulator, user) => {
         accumulator[user.id] = user;
         return accumulator;
     }, {});
@@ -46,7 +50,8 @@ export const mapUsersByUserId = (users: User[]) => {
     return group;
 };
 
-const getPriotityLabel = (priority: number) => {
+// Get priority label based on the priority number
+const getPriorityLabel = (priority) => {
     switch (priority) {
         case 0: return "No priority";
         case 1: return "Low";
@@ -55,17 +60,22 @@ const getPriotityLabel = (priority: number) => {
         case 4: return "Urgent";
         default: return "NA";
     }
-}
+};
 
-const orderByPriority = (tickets: Ticket[]) => tickets.sort((a: Ticket, b: Ticket) => a.priority > b.priority ? -1 : 1);
-const orderByTitle = (tickets: Ticket[]) => tickets.sort((a: Ticket, b: Ticket) => a.title < b.title ? -1 : 1);
+// Order tickets by priority
+const orderByPriority = (tickets) => tickets.sort((a, b) => (a.priority > b.priority ? -1 : 1));
 
-export const loadGrid = (tickets: Ticket[], grouping: string, ordering: string) => {
+// Order tickets by title
+const orderByTitle = (tickets) => tickets.sort((a, b) => (a.title < b.title ? -1 : 1));
+
+// Load tickets based on grouping and ordering
+export const loadGrid = (tickets, grouping, ordering) => {
     let orderedTickets;
-    if (ordering === "priority")
+    if (ordering === "priority") {
         orderedTickets = orderByPriority(tickets);
-    else
+    } else {
         orderedTickets = orderByTitle(tickets);
+    }
 
     switch (grouping) {
         case "status": return groupTicketsByStatus(orderedTickets);
@@ -73,4 +83,4 @@ export const loadGrid = (tickets: Ticket[], grouping: string, ordering: string) 
         case "user": return groupTicketsByUserId(orderedTickets);
         default: return groupTicketsByUserId(orderedTickets);
     }
-}
+};

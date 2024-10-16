@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import Header from './components/Header';
 import Grid from './components/Grid/grid';
-import { GET_TICKETS_URL } from './constants';
-import { loadGrid, mapUsersByUserId } from './utils';
+import { GET_TICKETS_URL } from './url';
+import { loadGrid, mapUsersByUserId } from './utils/grouping';
 import Loader from './components/Loader/loader';
 import './App.css';
 
